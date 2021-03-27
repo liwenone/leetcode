@@ -9,8 +9,9 @@ class Solution {
     }
 
     public String longestPalindrome(String s) {
-        if (s == null || s.length() < 1) return "";
-        
+        if (s == null || s.length() < 1)
+            return "";
+
         char[] charArr = s.toCharArray();
         int maxLen = 0, startIndex = 0;
         for (int i = 0; i < charArr.length; i++) {
