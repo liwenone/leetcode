@@ -1,7 +1,8 @@
 class Solution {
     public int myAtoi(String s) {
         char[] charArr = s.trim().toCharArray();
-        if (charArr.length == 0) return 0;
+        if (charArr.length == 0)
+            return 0;
 
         int sign = charArr[0] == '-' ? -1 : 1;
         int startIndex = charArr[0] == '-' || charArr[0] == '+' ? 1 : 0;
@@ -10,7 +11,8 @@ class Solution {
         for (int i = startIndex; i < charArr.length; i++) {
             char c = charArr[i];
 
-            if (c < '0' || c > '9') break;
+            if (c < '0' || c > '9')
+                break;
 
             int n = (c - '0') * sign;
             if (sign < 0) {
