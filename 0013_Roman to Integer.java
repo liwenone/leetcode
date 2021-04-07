@@ -1,31 +1,32 @@
-import java.util.HashMap;
 
 class Solution {
-    public int romanToInt(String s) {
-        HashMap<String, Integer> map = new HashMap<String, Integer>();
-        int[] arr = {1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000};
-        String[] strArr = {"I", "IV", "V", "IX", "X", "XL", "L", "XC", "C", "CD", "D", "CM", "M"};
-
-        for (int i = 0; i < arr.length; i++) {
-            map.put(strArr[i], arr[i]);
+    public int getValue(char c) {
+        switch(c) {
+            case 'I': return 1;
+            case 'V': return 5;
+            case 'X': return 10;
+            case 'L': return 50;
+            case 'C': return 100;
+            case 'D': return 500;
+            case 'M': return 1000;
+            default: return 0;
         }
+    }
 
-        int len = s.length();
-        int ans = 0, i = 0;
-        String s1 = "", s2 = "";
+    public int romanToInt(String s) {
+        int prev = getValue(s.charAt(0)), curr = 0;
+        int ans = prev;
 
-        while (i < len) {
-            s1 = s.substring(i, i + 1);
-            s2 = i + 2 <= len ? s.substring(i, i + 2) : "";
+        for (int i = 1; i < s.length(); i++) {
+            curr = getValue(s.charAt(i));
 
-            Integer n = map.get(s2);
-            if (n != null) {
-                ans += n;
-                i = i + 2;
+            if (prev < curr) {
+                ans += curr - 2 * prev;
             } else {
-                ans += map.get(s1);
-                i = i + 1;
+                ans += curr;
             }
+
+            prev = curr;
         }
 
         return ans;
