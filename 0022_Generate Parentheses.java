@@ -1,46 +1,27 @@
 import java.util.List;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 class Solution {
     public List<String> generateParenthesis(int n) {
-        HashMap<Integer, List<String>> map = new HashMap<>();
-        List<String> result = backTrace(map, n);
+        List<String> result = new ArrayList<>();
+        generateAll(new char[2 * n], result, 0, 0);
         return result;
     }
 
-    public List<String> backTrace(HashMap<Integer, List<String>> map, int n) {
-        List<String> list = map.get(n);
-        if (list != null)
-            return list;
-        list = new ArrayList<>();
 
-        if (n == 1)
-            list.add("()");
+    public void generateAll(char[] charArr, List<String> result, int pos, int balance) {
+        if (balance < 0) return;
 
-        for (int i = 1; i <= n - 1; i++) {
-            List<String> left = backTrace(map, i);
-            List<String> right = backTrace(map, n - i);
-
-            for (int j = 0; j < left.size(); j++) {
-                for (int k = 0; k < right.size(); k++) {
-                    String str = left.get(j) + right.get(k);
-                    if (!list.contains(str))
-                        list.add(str);
-                }
+        if (pos == charArr.length) {
+            if (balance == 0) {
+                result.add(new String(charArr));
             }
-
-            if (i == n - 1) {
-                for (int j = 0; j < left.size(); j++) {
-                    String str = left.get(j);
-                    if (!list.contains(str))
-                        list.add("(" + str + ")");
-                }
-            }
+            return;
         }
 
-        map.put(n, list);
-
-        return list;
+        charArr[pos] = '(';
+        generateAll(charArr, result, pos + 1, balance + 1);
+        charArr[pos] = ')';
+        generateAll(charArr, result, pos + 1, balance - 1);
     }
 }
