@@ -9,35 +9,34 @@
  * }
  */
 class Solution {
-    public ListNode mergeKLists(ListNode[] lists) {
-        ListNode head = new ListNode(0);
-        ListNode result = head;
+    public ListNode mergeList(ListNode l1, ListNode l2) {
+        ListNode dummy = new ListNode(0);
+        ListNode head = dummy;
 
-        boolean go = true;
-        int min = 10000;
-        int pos = 0;
-        
-        while (go) {
-            go = false;
-            min = 10000;
-            pos = 0;
-
-            for (int i = 0; i < lists.length; i++) {
-                ListNode curr = lists[i];
-                if (curr != null && curr.val < min) {
-                    min = curr.val;
-                    pos = i;
-                }
-                if (curr != null) go = true;
+        while (l1 != null & l2 != null) {
+            if (l1.val < l2.val) {
+                dummy.next = l1;
+                l1 = l1.next;
+            } else {
+                dummy.next = l2;
+                l2 = l2.next;
             }
-
-            if (go) {
-                head.next = lists[pos];
-                head = head.next;
-                lists[pos] = lists[pos].next;
-            }
+            dummy = dummy.next;
         }
 
-        return result.next;
+        if (l1 != null) dummy.next = l1;
+        if (l2 != null) dummy.next = l2;
+
+        return head.next;
+    }
+
+    public ListNode mergeKLists(ListNode[] lists) {
+        ListNode result = null;
+
+        for (int i = 0; i < lists.length; i++) {
+            result = mergeList(result, lists[i]);
+        }
+
+        return result;
     }
 }
