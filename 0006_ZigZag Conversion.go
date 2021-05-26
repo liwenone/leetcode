@@ -15,15 +15,11 @@ func convert(s string, numRows int) string {
 	counter := 0
 
 	for i := 0; i < length; i++ {
-		if rows[counter] == nil {
-			rows[counter] = make([]byte, 0, length/numRows+1)
-		}
 		rows[counter] = append(rows[counter], s[i])
 
 		if counter == 0 && flag == -1 {
 			flag = 1
-		}
-		if counter == numRows-1 && flag == 1 {
+		} else if counter == numRows-1 && flag == 1 {
 			flag = -1
 		}
 
