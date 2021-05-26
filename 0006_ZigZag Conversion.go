@@ -16,7 +16,7 @@ func convert(s string, numRows int) string {
 
 	for i := 0; i < length; i++ {
 		if rows[counter] == nil {
-			rows[counter] = make([]byte, 0, length/numRows)
+			rows[counter] = make([]byte, 0, length/numRows+1)
 		}
 		rows[counter] = append(rows[counter], s[i])
 
