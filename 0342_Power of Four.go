@@ -5,14 +5,13 @@ func isPowerOfFour(n int) bool {
 		return false
 	}
 
-	for n != 1 {
-		r := n % 4
-		if r != 0 {
-			return false
-		} else {
-			n = n / 4
+	base := 1
+	for base <= n {
+		if n == base {
+			return true
 		}
+		base = base << 2
 	}
 
-	return true
+	return false
 }
