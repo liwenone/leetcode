@@ -10,17 +10,19 @@ package main
  */
 func inorderTraversal(root *TreeNode) []int {
 	result := make([]int, 0)
-	inorder(root, &result)
+	stack := make([]*TreeNode, 0)
 
-	return result
-}
+	for root != nil || len(stack) != 0 {
+		for root != nil {
+			stack = append(stack, root)
+			root = root.Left
+		}
+		root = stack[len(stack)-1]
+		stack = stack[:len(stack)-1]
 
-func inorder(root *TreeNode, result *[]int) {
-	if root == nil {
-		return
+		result = append(result, root.Val)
+		root = root.Right
 	}
 
-	inorder(root.Left, result)
-	*result = append(*result, root.Val)
-	inorder(root.Right, result)
+	return result
 }
